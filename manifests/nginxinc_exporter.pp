@@ -52,11 +52,11 @@
 #   Labels to configure on the scrape job. If not set, the `prometheus::daemon` default (`{ 'alias' => $scrape_host }`) will be used.
 class prometheus::nginxinc_exporter (
   # Installation options
-  Enum['url','package'] $install_method   = 'url',
+  Enum['url','package'] $install_method   = 'package',
   Optional[Stdlib::HTTPUrl] $download_url = undef,
   Stdlib::HTTPUrl $download_url_base      = 'https://github.com/nginxinc/nginx-prometheus-exporter/releases',
-  String $download_extension              = '',
-  String[1] $version                      = '0.8.0',
+  String $download_extension              = 'tar.gz',
+  String[1] $version                      = 'v0.8.0',
 
   # Package options (relevant when `install_method == 'package'`)
   String[1] $package_ensure               = 'installed',
