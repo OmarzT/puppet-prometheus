@@ -55,12 +55,12 @@ class prometheus::nginxinc_exporter (
   Enum['url','package'] $install_method   = 'url',
   Optional[Stdlib::HTTPUrl] $download_url = undef,
   Stdlib::HTTPUrl $download_url_base      = 'https://github.com/nginxinc/nginx-prometheus-exporter/releases',
-  String $download_extension              = 'tar.gz',
-  String[1] $version                      = 'v0.8.0',
+  String $download_extension              = '',
+  String[1] $version                      = '0.8.0',
 
   # Package options (relevant when `install_method == 'package'`)
   String[1] $package_ensure               = 'installed',
-  String[1] $package_name                 = 'nginxinc_exporter',
+  String[1] $package_name                 = 'nginx-prometheus-exporter-0.8.0-linux-amd64.tar.gz',
 
   # user/group configuration
   Boolean          $manage_user  = true,
@@ -77,7 +77,7 @@ class prometheus::nginxinc_exporter (
   Boolean                         $service_enable = true,
 
   # exporter configuration
-  String  $extra_options     = '--systemd.enable --systemd.unit=\'nginxinc.service\' --nginxinc.logfile_path=\'\'',
+  String  $extra_options     = '-nginx.plus -nginx.scrape-uri http://127.0.0.1:8081/api',
   Boolean $restart_on_change = true,
 
   # scrape job configuration
