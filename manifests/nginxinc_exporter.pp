@@ -48,28 +48,45 @@
 # @param version
 #  The binary release version
 class prometheus::nginxinc_exporter (
+
+
+    # Installation options
+  Enum['url','package'] $install_method   = 'url',
+  Optional[Stdlib::HTTPUrl] $download_url = undef,
+  Stdlib::HTTPUrl $download_url_base      = 'https://github.com/nginxinc/nginx-prometheus-exporter/releases',
+  String $download_extension              = '',
+  String[1] $version                      = '0.8.0',
+
+  Package options (relevant when `install_method == 'package'`)
+  String[1] $package_ensure               = 'installed',
+  String[1] $package_name                 = 'nginxinc_exporter',
+
+  # user/group configuration
+  Boolean          $manage_user  = true,
+  String[1]        $user         = 'nginxinc-exporter',
+  Boolean          $manage_group = true,
+  String[1]        $group        = 'nginxinc-exporter',
+  Array[String[1]] $extra_groups = [],
+
+
+  # service related options
+  Boolean                         $manage_service = true,
+  Optional[Prometheus::Initstyle] $init_style     = undef,
+  String[1]                       $service_name   = 'nginxinc_exporter',
+  Stdlib::Ensure::Service         $service_ensure = 'running',
+  Boolean                         $service_enable = true,
+
+    # exporter configuration
+  Boolean $restart_on_change = true,
+
   String           $nginx_scrape_uri,
-  String           $download_extension,
-  String           $download_url_base,
-  Array            $extra_groups,
-  String           $group,
-  String           $package_ensure,
-  String[1]        $package_name,
-  String[1]        $service_name,
-  String           $user,
-  String           $version,
+
   Boolean          $purge_config_dir  = true,
-  Boolean          $restart_on_change = true,
-  Boolean          $service_enable    = true,
-  String           $service_ensure    = 'running',
+
   String           $init_style        = $facts['service_provider'],
   String           $install_method    = $prometheus::install_method,
-  Boolean          $manage_group      = true,
-  Boolean          $manage_service    = true,
-  Boolean          $manage_user       = true,
   String           $os                = downcase($facts['kernel']),
   String           $extra_options     = '',
-  Optional[String] $download_url      = undef,
   String           $arch              = $prometheus::real_arch,
   String           $bin_dir           = $prometheus::bin_dir,
   Boolean $export_scrape_job          = false,
