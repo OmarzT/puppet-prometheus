@@ -54,7 +54,7 @@ class prometheus::nginxinc_exporter (
   # Installation options
   Enum['url','package'] $install_method   = 'url',
   Optional[Stdlib::HTTPUrl] $download_url = undef,
-  Stdlib::HTTPUrl $download_url_base      = 'https://github.com/nginxinc/nginx-prometheus-exporter/releases/v',
+  Stdlib::HTTPUrl $download_url_base      = 'https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v',
   String $download_extension              = '',
   String[1] $version                      = '0.8.0',
 
@@ -89,7 +89,7 @@ class prometheus::nginxinc_exporter (
 ) {
   include prometheus
 
-  $real_download_url = pick($download_url,"${download_url_base}/download/${version}/${package_name}")
+  $real_download_url = pick($download_url,"${download_url_base}${version}/${package_name}")
   $notify_service = $restart_on_change ? {
     true    => Service[$service_name],
     default => undef,
