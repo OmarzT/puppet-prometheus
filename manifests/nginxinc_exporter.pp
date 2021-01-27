@@ -57,7 +57,6 @@ class prometheus::nginxinc_exporter (
   String $download_extension              = '',
   String[1] $version                      = '0.8.0',
 
-  Package options (relevant when `install_method == 'package'`)
   String[1] $package_ensure               = 'installed',
   String[1] $package_name                 = 'nginxinc_exporter',
 
