@@ -54,7 +54,7 @@ class prometheus::nginxinc_exporter (
   # Installation options
   Enum['url','package'] $install_method   = 'url',
   Optional[Stdlib::HTTPUrl] $download_url = undef,
-  Stdlib::HTTPUrl $download_url_base      = 'https://github.com/nginxinc/nginx-prometheus-exporter/releases',
+  Stdlib::HTTPUrl $download_url_base      = 'https://github.com/nginxinc/nginx-prometheus-exporter/releases/v',
   String $download_extension              = '',
   String[1] $version                      = '0.8.0',
 
