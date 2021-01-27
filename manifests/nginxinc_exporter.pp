@@ -75,7 +75,7 @@ class prometheus::nginxinc_exporter (
   Boolean $export_scrape_job          = false,
   Optional[Stdlib::Host] $scrape_host = undef,
   Stdlib::Port $scrape_port           = 9913,
-  String[1] $scrape_job_name          = 'nginx_vts',
+  String[1] $scrape_job_name          = 'nginxinc',
   Optional[Hash] $scrape_job_labels   = undef,
 ) inherits prometheus {
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
