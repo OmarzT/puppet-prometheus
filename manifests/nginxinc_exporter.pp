@@ -69,6 +69,9 @@ class prometheus::nginxinc_exporter (
   String[1]        $group        = 'nginxinc-exporter',
   Array[String[1]] $extra_groups = [],
 
+  String[1]        $bin_dir    = '/opt'
+  String[1]        $bin_name   = 'nginx-prometheus-exporter'
+
   # service related options
   Boolean                         $manage_service = true,
   Optional[Prometheus::Initstyle] $init_style     = undef,
